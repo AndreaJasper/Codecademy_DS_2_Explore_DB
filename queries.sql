@@ -43,3 +43,22 @@ JOIN invoices
 GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 10;
+
+-- Which countries have the highest sales revenue? What percent of total revenue does each country make up?
+SELECT Country, SUM(Total),
+	ROUND(Total/SUM(Total), 4) * 100.0 AS 'Percent'
+FROM invoices
+JOIN customers
+	ON invoices.CustomerId = customers.CustomerId
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
+
+-- How many customers did each employee support, what is the average revenue for each sale, and what is their total sale?
+SELECT EmployeeId, COUNT(customers.SupportRepID) AS 'Number of Customers Supported'
+FROM employees
+JOIN customers
+	on employees.EmployeeId = customers.SupportRepId
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10;
